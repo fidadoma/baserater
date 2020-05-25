@@ -1,0 +1,14 @@
+Package: baserater
+Type: Package
+Title: Computes Baserates For Test Battery
+Version: 0.3.0
+Author: Filip Dechterenko
+Maintainer: Filip Dechterenko <filip.dechterenko@gmail.com>
+Description: When participant respond in multiple performance tests, even healthy subjects might have "outlier scores". 
+  This package can be used for computing baserate scores. 
+Imports:
+  dplyr,magrittr,rlang
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2

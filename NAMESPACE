@@ -1,0 +1,5 @@
+exportPattern("^[[:alpha:]]+")
+
+importFrom("stats", "ecdf", "quantile", "sd")
+importFrom(magrittr,"%>%")
+importFrom(rlang,"as_label")
