@@ -14,6 +14,19 @@
 #' @export
 #'
 #' @examples
+#' library(tidyverse)
+#' library(baserater)
+#' data(baserate_UDS)
+#' v <- controls %>% select(MMSE_total:BNT) %>% colnames()
+#' sett <- create_settings(quo(gender),quo(edu_cat))
+#' sdi <- c(2,1.5,1)
+#' controls2 <- multiply_df(controls, sdi)
+#' compute_SD_cutoffs_limits(controls2,v, sett, by_gr1 = T, by_gr2 = T) %>%
+#'   add_SD_cutoffs(controls2, .,sett) %>%
+#'   test_if_lower(v,sett) %>%
+#'   compute_nlower(v,sett) %>%
+#'   compute_probposs_baserate_cutoffs(sett$grouping_var1, sett$grouping_var2, possible = .8, probable = .9)
+#'   
 compute_probposs_baserate_cutoffs <- function( df, v1 = NULL, v2 = NULL, possible = .8, probable = .9, round_dg = 3) {
   if(!(possible>0&possible<1)) {
     stop("parameter possible should be larger than 0 and smaller than 1")

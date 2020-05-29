@@ -7,11 +7,24 @@
 create_lower_lim_vars(v, sett)
 }
 \arguments{
-\item{uniq_suffix}{}
+\item{v}{vector of variables}
+
+\item{uniq_suffix}{unique suffix added to variables}
 }
 \value{
 
 }
 \description{
 For given variables, creates variable names for lower limits
+}
+\examples{
+library(tidyverse)
+library(baserater)
+
+data(baserate_UDS)
+
+sett <- create_settings(quo(gender),quo(edu_cat))
+
+v <- controls \%>\% select(MMSE_total:BNT) \%>\% colnames()
+v_lowerlim <- create_lower_lim_vars(v, sett)
 }

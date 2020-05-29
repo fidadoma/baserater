@@ -26,15 +26,13 @@ classify_group(df, v, df_controls, sdi = c(2, 1.5, 1), sett)
 Applies baserate approach to classify group into possible/probable
 }
 \examples{
-library(dplyr)
+library(tidyverse)
 library(baserater)
-v <- c("Extraversion","Empathy.Agreeableness","Conscientiousness","Instability.Neuroticism","Openness_to_Experience.Intellect","Honesty.Humility",
-      "Disinhibition", "Detachment", "Psychoticism","Negative_Affect","Antagonism")
-df <- tibble() # here should be proper dataset, for example neuropsychology::personality
-mutate_at(df, v, ~(-.))
-sett <- create_settings(quo(Sex),quo(Meditation))
-df_controls <- df \%>\% filter(Mood_Disorder == "Absence")
-df_patients <- df \%>\% filter(Mood_Disorder == "Presence")
-sdi <- c(2,1.5,1)
-pat_classified <- classify_group(df_patients,v,df_controls,sdi,sett = sett)
+
+data(baserate_UDS)
+
+sett <- create_settings(quo(gender),quo(edu_cat))
+
+v <- controls \%>\% select(MMSE_total:BNT) \%>\% colnames()
+pat_classified <- classify_group(patients,v,controls,sdi,sett = sett)
 }

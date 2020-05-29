@@ -12,7 +12,6 @@
 #' @return
 #' @export
 #'
-#' @examples
 evaluate_possible_probable <- function(df, v, sd_cutoffs, sett, possprob_suffix) {
   join_by <- intersect(c(as_label(sett$grouping_var1),as_label(sett$grouping_var2),sett$sd_col),colnames(sd_cutoffs))
   out_col         <- sym(sett$n_lower_col)

@@ -10,19 +10,32 @@
 #' @export
 #'
 #' @examples
+#' x <- runif(500)
+#' lower_lim(x)
+#' lower_lim(x, sd_lim = 2)
+#' lower_lim(x, sd_lim = 2, na.rm = T)
 lower_lim <- function(x, sd_lim = 1.5, ...) {
   return(mean(x, ...) - sd_lim * sd(x, ...))
 }
 
 #' For given variables, creates variable names for lower limits
 #'
-#' @param v
-#' @param uniq_suffix
+#' @param v vector of variables
+#' @param uniq_suffix unique suffix added to variables
 #'
 #' @return
 #' @export
 #'
 #' @examples
+#' library(tidyverse)
+#' library(baserater)
+#' 
+#' data(baserate_UDS)
+#' 
+#' sett <- create_settings(quo(gender),quo(edu_cat))
+#' 
+#' v <- controls %>% select(MMSE_total:BNT) %>% colnames()
+#' v_lowerlim <- create_lower_lim_vars(v, sett)
 create_lower_lim_vars <- function(v, sett) {
   uniq_suffix <- sett$is_lower_suffix
   v %>% paste0(uniq_suffix)
@@ -39,6 +52,8 @@ create_lower_lim_vars <- function(v, sett) {
 #' @export
 #'
 #' @examples
+#' data(iris)
+#' multiply_df(iris, sdi = c(1,1.5))
 multiply_df <- function(df, sdi) {
 
   df_out <- purrr::map_df(seq_len(length(sdi)), ~df) %>%
@@ -58,6 +73,20 @@ multiply_df <- function(df, sdi) {
 #' @export
 #'
 #' @examples
+#' library(tidyverse)
+#' library(baserater)
+#' 
+#' data(baserate_UDS)
+#' 
+#' sett <- create_settings(quo(gender),quo(edu_cat))
+#' 
+#' v <- controls %>% select(MMSE_total:BNT) %>% colnames()
+#' sdi <- c(1,1,5)
+#' controls2 <- multiply_df(controls, sdi)
+#' 
+#' compute_SD_cutoffs_limits(controls2,v, sett, by_gr1 = T, by_gr2 = T) %>%
+#' add_SD_cutoffs(controls2, .,sett) %>%
+#'   test_if_lower(v,sett)
 test_if_lower <- function(df, v, sett) {
   lower_lim_suffix <- sett$lower_lim_suffix
   output_suffix    <- sett$is_lower_suffix
@@ -83,6 +112,19 @@ test_if_lower <- function(df, v, sett) {
 #' @export
 #'
 #' @examples
+#' library(tidyverse)
+#' library(baserater)
+#' 
+#' data(baserate_UDS)
+#' 
+#' sett <- create_settings(quo(gender),quo(edu_cat))
+#' 
+#' v <- controls %>% select(MMSE_total:BNT) %>% colnames()
+#' sdi <- c(1,1,5)
+#' controls2 <- multiply_df(controls, sdi)
+#' 
+#' compute_SD_cutoffs_limits(controls2,v, sett, by_gr1 = T, by_gr2 = T) %>%
+#' add_SD_cutoffs(controls2, .,sett) 
 add_SD_cutoffs <- function(df, SD_cutoffs,sett) {
   join_by <- intersect(c(as_label(sett$grouping_var1),as_label(sett$grouping_var2),sett$sd_col), colnames(SD_cutoffs))
 
@@ -102,6 +144,20 @@ add_SD_cutoffs <- function(df, SD_cutoffs,sett) {
 #' @export
 #'
 #' @examples
+#' #' library(tidyverse)
+#' library(baserater)
+#' 
+#' data(baserate_UDS)
+#' 
+#' sett <- create_settings(quo(gender),quo(edu_cat))
+#' 
+#' v <- controls %>% select(MMSE_total:BNT) %>% colnames()
+#' sdi <- c(1,1,5)
+#' controls2 <- multiply_df(controls, sdi)
+#' 
+#' compute_SD_cutoffs_limits(controls2,v, sett, by_gr1 = T, by_gr2 = T) %>%
+#' add_SD_cutoffs(controls2, .,sett) %>%
+#' compute_nlower(v,sett) %>%
 compute_nlower <- function(df, v, sett) {
   n_lower_col <- sett$n_lower_col
   limvars <- create_lower_lim_vars(v,sett)

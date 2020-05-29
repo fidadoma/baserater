@@ -17,3 +17,7 @@ multiply_df(df, sdi)
 \description{
 Multiples data frame for given SD. The column name will be named as sdi
 }
+\examples{
+data(iris)
+multiply_df(iris, sdi = c(1,1.5))
+}

@@ -1,8 +1,7 @@
 library(tidyverse)
 library(baserater)
 
-v <- c("Extraversion","Empathy.Agreeableness","Conscientiousness","Instability.Neuroticism","Openness_to_Experience.Intellect","Honesty.Humility",
-       "Disinhibition", "Detachment", "Psychoticism","Negative_Affect","Antagonism")
+v <- controls %>% select(MMSE_total:BNT) %>% colnames()
 
 df <- neuropsychology::personality %>% as_tibble()
 

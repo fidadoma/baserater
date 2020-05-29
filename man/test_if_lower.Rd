@@ -19,3 +19,19 @@ test_if_lower(df, v, sett)
 \description{
 This function is used for computation of number of low scores. First, limits should be computed based on control sample. Second, each score is compared with the limit to measure, whether subject scored below limit.
 }
+\examples{
+library(tidyverse)
+library(baserater)
+
+data(baserate_UDS)
+
+sett <- create_settings(quo(gender),quo(edu_cat))
+
+v <- controls \%>\% select(MMSE_total:BNT) \%>\% colnames()
+sdi <- c(1,1,5)
+controls2 <- multiply_df(controls, sdi)
+
+compute_SD_cutoffs_limits(controls2,v, sett, by_gr1 = T, by_gr2 = T) \%>\%
+add_SD_cutoffs(controls2, .,sett) \%>\%
+  test_if_lower(v,sett)
+}

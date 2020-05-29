@@ -19,3 +19,19 @@ compute_nlower(df, v, sett)
 \description{
 Computes number of low scores
 }
+\examples{
+#' library(tidyverse)
+library(baserater)
+
+data(baserate_UDS)
+
+sett <- create_settings(quo(gender),quo(edu_cat))
+
+v <- controls \%>\% select(MMSE_total:BNT) \%>\% colnames()
+sdi <- c(1,1,5)
+controls2 <- multiply_df(controls, sdi)
+
+compute_SD_cutoffs_limits(controls2,v, sett, by_gr1 = T, by_gr2 = T) \%>\%
+add_SD_cutoffs(controls2, .,sett) \%>\%
+compute_nlower(v,sett) \%>\%
+}

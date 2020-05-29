@@ -11,6 +11,14 @@
 #' @export
 #'
 #' @examples
+#' library(tidyverse)
+#' library(baserater)
+#' data(baserate_UDS)
+#' v <- controls %>% select(MMSE_total:BNT) %>% colnames()
+#' sett <- create_settings(quo(gender),quo(edu_cat))
+#' sdi <- c(2,1.5,1)
+#' controls2 <- multiply_df(controls, sdi)
+#' compute_SD_cutoffs_limits(controls2, v, sett)
 compute_SD_cutoffs_limits <- function(df, v, sett, by_gr1=F, by_gr2=F) {
   lower_lim_suffix <- sett$lower_lim_suffix
   grouping_var1    <- sett$grouping_var1

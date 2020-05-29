@@ -19,3 +19,9 @@ lower_lim(x, sd_lim = 1.5, ...)
 \description{
 Lower limit is compute by subtracting specified multiplier of SD from the mean
 }
+\examples{
+x <- runif(500)
+lower_lim(x)
+lower_lim(x, sd_lim = 2)
+lower_lim(x, sd_lim = 2, na.rm = T)
+}
