@@ -47,12 +47,11 @@ Base-rates are computed for each subgroup individually (e.g. for each age group 
 sett <- create_settings(quo(age_cat),quo(edu_cat))
 ```
 
-Load data supplied with the package
+The three datasets are supplied with the package
 
-```{r}
-controls <- data(controls)
-patients <- data(patients)
-```
+* ```controls``` 
+* ```patients```
+* ```validation```
 
 Set SD that will be used for determining what will be treated as low-score. Here, we will use three different SDs 
 ```{r}
