@@ -68,13 +68,14 @@ val_classified <- classify_group(validation, v, controls, sdi, sett = sett)
 
 Finally, we can report some descriptive statistics for each SD
 ```{r}
+
 pat_classified %>%
   group_by(sdi) %>%
   summarize(m_possible = mean(possibleSexMeditation) * 100,
             sd_possible = sd(possibleSexMeditation) * 100,
             m_probable = mean(probableSexMeditation) * 100,
             sd_probable = sd(probableSexMeditation) * 100) %>% 
-            knitr::kable(caption = "Patients sample")
+            knitr::kable(caption = "Patients sample", digits = 2)
 
 val_classified %>%
   group_by(sdi) %>%
@@ -82,5 +83,5 @@ val_classified %>%
             sd_possible = sd(possibleSexMeditation) * 100,
             m_probable = mean(probableSexMeditation) * 100,
             sd_probable = sd(probableSexMeditation) * 100) %>% 
-            knitr::kable(caption = "Validation sample")
+            knitr::kable(caption = "Validation sample", digits = 2)
 ```
