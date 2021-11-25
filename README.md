@@ -47,12 +47,11 @@ Base-rates are computed for each subgroup individually (e.g. for each age group 
 sett <- create_settings(quo(age_cat),quo(edu_cat))
 ```
 
-Load data supplied with the package
+The three datasets are supplied with the package
 
-```{r}
-controls <- data(controls)
-patients <- data(patients)
-```
+* ```controls``` 
+* ```patients```
+* ```validation```
 
 Set SD that will be used for determining what will be treated as low-score. Here, we will use three different SDs 
 ```{r}
@@ -68,13 +67,14 @@ val_classified <- classify_group(validation, v, controls, sdi, sett = sett)
 
 Finally, we can report some descriptive statistics for each SD
 ```{r}
+
 pat_classified %>%
   group_by(sdi) %>%
   summarize(m_possible = mean(possibleSexMeditation) * 100,
             sd_possible = sd(possibleSexMeditation) * 100,
             m_probable = mean(probableSexMeditation) * 100,
             sd_probable = sd(probableSexMeditation) * 100) %>% 
-            knitr::kable(caption = "Patients sample")
+            knitr::kable(caption = "Patients sample", digits = 2)
 
 val_classified %>%
   group_by(sdi) %>%
@@ -82,5 +82,5 @@ val_classified %>%
             sd_possible = sd(possibleSexMeditation) * 100,
             m_probable = mean(probableSexMeditation) * 100,
             sd_probable = sd(probableSexMeditation) * 100) %>% 
-            knitr::kable(caption = "Validation sample")
+            knitr::kable(caption = "Validation sample", digits = 2)
 ```
